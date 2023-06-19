@@ -52,7 +52,7 @@ export class AuthService {
         //   subscriber.next({firstName: 'Pranshu', lastName: 'Malhotra', email: 'XXXXXXXXXXXXXXXXX'});
         // });
         // return source$;
-        return this.http.post<User>(this.url + 'api/auth/register/', request);
+        return this.http.post<User>(this.url + 'auth/register/', request);
     }
 
     login(request: UserLoginRequest): Observable<Boolean> {
@@ -61,7 +61,7 @@ export class AuthService {
         // });
         // return source$;
         return this.http
-            .post<UserLoginResponse>(this.url + 'api/auth/token/', request)
+            .post<UserLoginResponse>(this.url + 'auth/token/', request)
             .pipe(
                 map((data: UserLoginResponse) => {
                     var token = data;
@@ -87,7 +87,7 @@ export class AuthService {
 
     logout(): Observable<Boolean> {
         return this.http
-            .get<any>(this.url + 'api/auth/logout/')
+            .get<any>(this.url + 'auth/logout/')
             .pipe(
                 map((data: any) => {
                     console.log(data);
@@ -104,6 +104,6 @@ export class AuthService {
 
     refreshToken(payload: UserLoginResponse) {
         return this.http
-            .post<UserLoginResponse>(this.url + 'auth/token/refresh/', payload);
+            .post<UserLoginResponse>(this.url + 'token/refresh/', payload);
     }
 }
