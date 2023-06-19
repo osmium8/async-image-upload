@@ -1,4 +1,5 @@
 from .base import *
+import dj_database_url
 
 # specify ip-address(es)
 ALLOWED_HOSTS = ['*'] 
@@ -9,14 +10,11 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '<name>',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST':'localhost',
-        'PORT':'3306',
-    }
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        conn_max_age=600
+    )
 }
 
 CELERY_BROKER_URL = "redis://localhost:6379"
