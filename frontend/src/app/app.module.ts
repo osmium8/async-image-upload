@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from './auth/auth.service';
 import { AuthTokenInterceptor } from './auth/auth-token-interceptor';
 import { FullViewComponent } from './full-view/full-view.component';
+import { environment } from 'environments/environment.prod';
 
 export function jwtOptionFactor(authService:AuthService){
   console.log(authService.getAccessToken())
@@ -19,10 +20,10 @@ export function jwtOptionFactor(authService:AuthService){
     tokenGetter:() => {
       return authService.getAccessToken();
     },
-    allowedDomains:["127.0.0.1:8000"],
+    allowedDomains:[environment.backend_url],
     disallowedRoutes:[
-      "http://127.0.0.1:8000/api/auth/register",
-      "http://127.0.0.1:8000/api/auth/token"
+      environment.backend_api_url +'auth/register',
+      environment.backend_api_url +'auth/token'
     ]
   }
 }

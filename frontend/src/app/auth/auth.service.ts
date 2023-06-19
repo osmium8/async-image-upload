@@ -7,6 +7,7 @@ import { UserLoginResponse } from './model/user-login.response.model';
 import { UserSignupRequest } from './model/user-signup-request.model';
 import { User } from './model/user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'environments/environment.prod';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
 
     constructor(private http: HttpClient) { }
+
+    url: string = environment.backend_api_url
 
     userProfile = new BehaviorSubject<UserSignupRequest | null>(null);
     jwtService: JwtHelperService = new JwtHelperService();
@@ -41,7 +44,7 @@ export class AuthService {
         //   subscriber.next({status: true});
         // });
         // return source$;
-        return this.http.get<AuthResponse>('http://127.0.0.1:8000/api/auth/isauthenticated/');
+        return this.http.get<AuthResponse>(this.url + 'auth/isauthenticated/');
     }
 
     signup(request: UserSignupRequest): Observable<User> {
@@ -49,7 +52,7 @@ export class AuthService {
         //   subscriber.next({firstName: 'Pranshu', lastName: 'Malhotra', email: 'XXXXXXXXXXXXXXXXX'});
         // });
         // return source$;
-        return this.http.post<User>('http://127.0.0.1:8000/api/auth/register/', request);
+        return this.http.post<User>(this.url + 'api/auth/register/', request);
     }
 
     login(request: UserLoginRequest): Observable<Boolean> {
@@ -58,7 +61,7 @@ export class AuthService {
         // });
         // return source$;
         return this.http
-            .post<UserLoginResponse>('http://127.0.0.1:8000/api/auth/token/', request)
+            .post<UserLoginResponse>(this.url + 'api/auth/token/', request)
             .pipe(
                 map((data: UserLoginResponse) => {
                     var token = data;
@@ -84,7 +87,7 @@ export class AuthService {
 
     logout(): Observable<Boolean> {
         return this.http
-            .get<any>('http://127.0.0.1:8000/api/auth/logout/')
+            .get<any>(this.url + 'api/auth/logout/')
             .pipe(
                 map((data: any) => {
                     console.log(data);
@@ -101,6 +104,6 @@ export class AuthService {
 
     refreshToken(payload: UserLoginResponse) {
         return this.http
-            .post<UserLoginResponse>('http://127.0.0.1:8000/api/auth/token/refresh/', payload);
+            .post<UserLoginResponse>(this.url + 'auth/token/refresh/', payload);
     }
 }

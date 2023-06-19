@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { ImageResponse } from './model/image-response.model';
 import { Image } from './model/image.model';
@@ -13,19 +14,21 @@ export class GalleryService {
 
   constructor(private http: HttpClient) { }
 
+  url: string = environment.backend_url
+
   getImages(): Observable<Image[]> {
-    return this.http.get<Image[]>('http://127.0.0.1:8000/api/gallery/');
+    return this.http.get<Image[]>(this.url + 'gallery/');
   }
 
   getImage(id: any): Observable<Image> {
-    return this.http.get<Image>('http://127.0.0.1:8000/api/gallery/detail/?id='+id);
+    return this.http.get<Image>(this.url + 'gallery/detail/?id='+id);
   }
 
   uploadImage(formData: FormData): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/api/gallery/upload/', formData)
+    return this.http.post(this.url + 'gallery/upload/', formData)
   }
 
   deleteImage(id: any): Observable<any>  {
-    return this.http.delete<any>('http://127.0.0.1:8000/api/gallery/delete/?id='+id);
+    return this.http.delete<any>(this.url + 'gallery/delete/?id='+id);
   }
 }
