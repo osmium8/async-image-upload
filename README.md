@@ -8,9 +8,7 @@
 | Home        | Upload Dialog | Auth(Login) | Auth(Register) |
 | ----------- | ------------- |------------ |--------------- |
 | <img src="home.png"> | <img src="upload_dialog.png"> | <img src="auth_login.png"> | <img src="auth_register.png"> |
-<!-- | Upload Dialog|<img src="upload_dialog.png" height="300px">|
-| Auth(Login)       |<img src="auth_login.png" height="300px">|
-| Auth(Register)        |<img src="auth_register.png" height="300px">| -->
+| <img src="full_view.png"> |
 
 #### setup:
 (start backend server first)
