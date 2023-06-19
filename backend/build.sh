@@ -1,4 +1,4 @@
 pip install -r requirements.txt
 
-python manage.py makemigrations
-python manage.py migrate
+python flagship/manage.py makemigrations
+python flagship/manage.py migrate
