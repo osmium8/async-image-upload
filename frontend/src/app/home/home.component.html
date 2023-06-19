@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+<div class="flex justify-content-center">
+    <button pButton pRipple label="Upload New" icon="pi pi-cloud-upload" class="p-button-success mt-2" (click)="openDialog()"></button>
+    <h1 *ngIf="this.images.length == 0" [style]="{margin: '10px'}">No Images uploaded!</h1>
+</div>
+<p-dialog [(visible)]="uploadImageDialog" [style]="{width: '450px'}" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        Upload image
+    </ng-template>
+    <ng-template pTemplate="content">
+        <!-- <p-progressBar *ngIf="this.uploadTask" [value]="this.uploadPercent"></p-progressBar> -->
+        <div class="formgrid gird">
+            <div class="field col">
+                <label *ngIf="this.file" class="p-button"
+                    [style]="{'width': '10em', 'background-color': 'green'}" for="upload-button">{{""
+                    +this.uploadedFileName+" "}}</label>
+                <label *ngIf="!this.file" class="p-button" [style]="{'width': '10em'}"
+                    for="upload-button">{{"Select "}}<i class="pi pi-image"></i></label>
+                <input #fileInput id="upload-button" type="file" accept="image/png, image/jpeg" [(ngModel)]="file"
+                    (change)="uploadFile($event)" hidden />
+                <button *ngIf="this.file" (click)="reset()" pButton pRipple type="button" icon="pi pi-times"
+                    class="p-button-rounded p-button-danger p-button-text"></button>
+            </div>
+        </div>
+        <div class="field">
+            <label for="date">Title</label>
+            <input type="text" pInputText id="name" [(ngModel)]="image.title" required autofocus />
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea pInputTextarea id="description" [(ngModel)]="image.description" required rows="5"
+                cols="50"></textarea>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple [disabled]="!image.description || !image.title" label="Submit"
+            icon="pi pi-check" class="p-button-raised p-button-success mb-2" (click)=" saveImage() "></button>
+    </ng-template>
+</p-dialog>
+<div class="gallery">
+    <div *ngFor="let image of images" [style]="{ padding: '5px'}">
+        <!-- <img  class="gallery-image" [src]="image.url" alt="an image from your gallery"> -->
+        <!-- <div class="gallery-image-title">Multi-line</div> -->
+        <p-card [header]="image.title" [style]="{ padding: '5px', width: '300px' }">
+            <ng-template pTemplate="header">
+                <img alt="Card" [style]="{ }" [src]="image.thumbnail_url" (click)="openFullView(image.id)"/>
+            </ng-template>
+            <p>
+                {{image.date_uploaded | date :'short'}}
+            </p>
+        </p-card>
+    </div>
+</div>

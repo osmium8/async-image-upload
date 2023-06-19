@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "super-pic",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

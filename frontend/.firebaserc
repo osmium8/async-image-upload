@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gallery-angular-drf": {
+      "hosting": {
+        "super-pic": [
+          "gallery-angular-drf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gallery-angular-drf"
+  }
+}

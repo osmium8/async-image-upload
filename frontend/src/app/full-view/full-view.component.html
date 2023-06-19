@@ -1,0 +1,16 @@
+<div *ngIf="this.image">
+    <img class="full-screen-view" [src]="this.image.url" alt="Requested Image">
+    <p-fieldset legend="{{this.image.title}}">
+        <p class="m-0">
+            {{this.image.description}}
+        </p>
+    </p-fieldset>
+    <div class="flex justify-content-center">
+        <button pButton pRipple label="Delete" icon="pi pi-delete-left" class="p-button-danger mt-2" (click)="deleteImage()"></button>
+    </div>
+</div>
+<div *ngIf="!this.image" class="flex justify-content-center">
+    <i class="pi pi-spin pi-spinner" style="font-size: 12rem"></i>
+</div>
+
+

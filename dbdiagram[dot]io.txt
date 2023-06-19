@@ -1,0 +1,21 @@
+Table user {
+  id integer [primary key]
+  first_name varchar [not null]
+  last_name varchar [not null]
+  email varchar [null, unique]
+  is_admin boolean
+  is_staff boolean
+  created_at timestamp [not null]
+}
+
+Table image {
+  id integer [primary key]
+  url varchar
+  thumbnail_url integer
+  title varchar
+  description varchar
+  date_uploaded date
+  user_id integer
+}
+
+Ref: image.user_id > user.id
