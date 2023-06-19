@@ -17,6 +17,14 @@ ALLOWED_HOSTS = ['*']
 #     )
 # }
 
+RQ_QUEUES = {
+    'default': {
+    'HOST': 'red-ci88et98g3n3vm405hng',
+    'PORT': 6379,
+    'DB': 0,
+    }
+}
+
 CELERY_BROKER_URL = "redis://red-ci88et98g3n3vm405hng:6379"
 CELERY_RESULT_BACKEND = "redis://red-ci88et98g3n3vm405hng:6379"
 
