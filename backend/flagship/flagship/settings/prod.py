@@ -17,8 +17,8 @@ ALLOWED_HOSTS = ['*']
 #     )
 # }
 
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = "redis://red-ci88et98g3n3vm405hng:6379"
+CELERY_RESULT_BACKEND = "redis://red-ci88et98g3n3vm405hng:6379"
 
 # specify ip-address(es)
 CORS_ORIGIN_ALLOW_ALL = True
