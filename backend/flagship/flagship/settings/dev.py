@@ -1,15 +1,5 @@
 from .base import *
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '<name>',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST':'localhost',
-        'PORT':'3306',
-    }
-}
 
 RQ_QUEUES = {
     'default': {
