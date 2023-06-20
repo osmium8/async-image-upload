@@ -19,7 +19,7 @@ from celery import current_app
 from django.core.files import File
 from common.storage import file_system_storage
 from pathlib import Path
-import models
+from . import models
 from common.storage import bucket
 # Create your views here.
 
