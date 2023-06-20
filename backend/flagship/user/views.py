@@ -14,6 +14,8 @@ from .serializers import UserSerializer
 User = get_user_model()
 
 class LogoutAPIView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    
     def get(self, request, *args, **kwargs):
         logout(request)
         return Response({"Message": "Successfully Logged out"}, status=200)
