@@ -79,13 +79,18 @@ export class EmailLoginComponent implements OnInit {
                 this.authService.login({
                     email: email,
                     password: password
-                }).subscribe((isAuthenticated: Boolean) => {
-                    console.log('login component: ', isAuthenticated)
-                    if (isAuthenticated) {
-                        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You are logged in', life: 3000 });
-                        this.router.navigate(['']);
-                    } else {
-                        this.serverMessage = 'Invalid credentials';
+                }).subscribe({
+                    next: (isAuthenticated: Boolean) => {
+                        if (isAuthenticated) {
+                            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You are logged in', life: 3000 });
+                            this.router.navigate(['']);
+                        } else {
+                            this.serverMessage = 'Invalid credentials';
+                        }
+                    },
+                    error: (e: HttpErrorResponse) => {
+                        console.log(e);
+                        this.serverMessage = e.error.detail;
                     }
                 });
             }
