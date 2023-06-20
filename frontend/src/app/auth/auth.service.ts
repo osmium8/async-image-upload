@@ -104,6 +104,6 @@ export class AuthService {
 
     refreshToken(payload: UserLoginResponse) {
         return this.http
-            .post<UserLoginResponse>(this.url + 'token/refresh/', payload);
+            .post<UserLoginResponse>(this.url + 'auth/token/refresh/', payload);
     }
 }

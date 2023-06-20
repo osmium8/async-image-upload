@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/auth/auth.service';
@@ -14,7 +15,7 @@ export class ShellComponent implements OnInit {
 
   isAuthenticated: boolean
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(public router: Router, public authService: AuthService) {
     this.isAuthenticated = false;
   }
 
@@ -30,11 +31,11 @@ export class ShellComponent implements OnInit {
   }
 
   signOut() {
-    this.authService.logout().subscribe((success: Boolean) => {
-      if (success) {
-        this.router.navigateByUrl('/auth');
-      }
-    });
+    this.router.navigate(['/auth']);
+    this.authService.userProfile.next(null);
+    // this.authService.logout().subscribe((value: any) => {
+    //   console.log(value);
+    // });
   }
 
   items: MenuItem[] = [
