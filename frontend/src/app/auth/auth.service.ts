@@ -72,7 +72,7 @@ export class AuthService {
                         token.access
                     ) as UserSignupRequest;
 
-                    console.log('getAccessToken '+userInfo.user_id)
+                    console.log('getAccessToken ' + userInfo.user_id)
 
                     this.userProfile.next(userInfo);
 
@@ -86,13 +86,13 @@ export class AuthService {
     }
 
     logout(): Observable<Boolean> {
+        this.userProfile.next(null);
+        localStorage.removeItem('tokens');
         return this.http
             .get<any>(this.url + 'auth/logout/')
             .pipe(
                 map((data: any) => {
                     console.log(data);
-                    this.userProfile.next(null);
-                    localStorage.removeItem('tokens');
                     return true;
                 }),
                 catchError((error) => {

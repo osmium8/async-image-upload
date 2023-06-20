@@ -81,6 +81,7 @@ export class EmailLoginComponent implements OnInit {
                     password: password
                 }).subscribe({
                     next: (isAuthenticated: Boolean) => {
+                        console.log(isAuthenticated)
                         if (isAuthenticated) {
                             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You are logged in', life: 3000 });
                             this.router.navigate(['']);

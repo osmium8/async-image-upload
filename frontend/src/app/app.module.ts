@@ -22,8 +22,8 @@ export function jwtOptionFactor(authService:AuthService){
     },
     allowedDomains:[environment.backend_url],
     disallowedRoutes:[
-      environment.backend_api_url +'auth/register',
-      environment.backend_api_url +'auth/token'
+      environment.backend_api_url +'auth/register/',
+      environment.backend_api_url +'auth/token/'
     ]
   }
 }
