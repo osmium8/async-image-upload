@@ -3,18 +3,14 @@ from datetime import datetime
 from io import BytesIO
 from PIL import Image
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.views import View
-from rest_framework.generics import ListAPIView, CreateAPIView, \
-    RetrieveUpdateDestroyAPIView, GenericAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, GenericAPIView, DestroyAPIView
 from rest_framework import permissions
 from rest_framework.response import Response
-from rest_framework.exceptions import ValidationError
 from .serializers import ImageSerializer, ImageListSerializer
 from rest_framework.views import APIView
 from django.db.utils import IntegrityError
 from flagship.tasks import upload_image
-import django_rq
 from celery import current_app
 from django.core.files import File
 from common.storage import file_system_storage
@@ -106,7 +102,7 @@ class ImageCreate(APIView):
             file_system_storage.save(image_file.name, File(image_file))
 
             # upload image to firebase storage, asynchronously
-            task = upload_image.delay(
+            upload_image(
                 path=file_system_storage.path(image_file.name),
                 pk=image.pk,
                 user_id=request.user.id,
@@ -114,7 +110,7 @@ class ImageCreate(APIView):
             )
 
             data = {'status': 'true', 'data': {
-                'title': image.title, 'task': task.id}}
+                'title': image.title}}
             return Response(data, 200)
 
         except IntegrityError:
