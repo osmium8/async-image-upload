@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 import { Observable } from 'rxjs';
 import { ImageResponse } from './model/image-response.model';
 import { Image } from './model/image.model';
@@ -14,7 +14,7 @@ export class GalleryService {
 
   constructor(private http: HttpClient) { }
 
-  url: string = environment.backend_url
+  url: string = environment.backend_api_url
 
   getImages(): Observable<Image[]> {
     return this.http.get<Image[]>(this.url + 'gallery/');

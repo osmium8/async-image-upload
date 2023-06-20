@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '../auth.service';
 import { UserLoginResponse } from '../model/user-login.response.model';
 import { User } from '../model/user.model';
@@ -20,7 +21,7 @@ export class EmailLoginComponent implements OnInit {
 
     serverMessage: string = '';
 
-    constructor(private fb: FormBuilder, public authService: AuthService, private router: Router) {
+    constructor(private fb: FormBuilder, public authService: AuthService, private router: Router, private messageService: MessageService) {
         this.form = this.fb.group({
             firstName: ['', [Validators.required]],
             lastName: ['', [Validators.required]],
@@ -81,6 +82,7 @@ export class EmailLoginComponent implements OnInit {
                 }).subscribe((isAuthenticated: Boolean) => {
                     console.log('login component: ', isAuthenticated)
                     if (isAuthenticated) {
+                        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You are logged in', life: 3000 });
                         this.router.navigate(['']);
                     } else {
                         this.serverMessage = 'Invalid credentials';
@@ -96,6 +98,8 @@ export class EmailLoginComponent implements OnInit {
                 }).subscribe({
                     next: (user: User) => {
                         console.log(user);
+                        this.changeType('login')
+                        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'You have registered.', life: 3000 });
                     },
                     error: (e: HttpErrorResponse) => {
                         console.log(e);
